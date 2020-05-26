@@ -16,8 +16,8 @@ export class AppComponent {
 
   constructor(service:QuestionServiceService)
   {
-   // this.questions$=service.getQuestions();
-    this.questions$=service.getDepartmentQuestions();
+     this.questions$=service.getQuestions();
+     //this.questions$=service.getDepartmentQuestions();
   }
 
 }

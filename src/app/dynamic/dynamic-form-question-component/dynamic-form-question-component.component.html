@@ -25,7 +25,7 @@
             </div>
         </div>
     </div>
-    <span class="invalid-feedback" *ngIf="isInValid">        
+<span class="help-block" *ngIf="isInValid" style="color: red;">        
         <div *ngIf="control.errors?.required">
            {{question.label}} is required
         </div>
