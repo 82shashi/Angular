@@ -1,0 +1,21 @@
+<div>
+    <form (ngSubmit)="onSubmit()" [formGroup]="form">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title">Create Employee</h3>
+            </div>
+            <div class="panel-body">
+                <div *ngFor="let question of questions" class="form-row">
+                    <dynamic-question [question]="question" [form]="form">
+                    </dynamic-question>
+                </div>
+                <div class="form-row">
+                    <button type="submit" [disabled]="!form.valid">Save</button>
+                </div>
+            </div>
+        </div>
+    </form>
+    <div *ngIf="payLoad" class="form-row">
+        <strong>Saved the following values</strong><br>{{payLoad}}
+    </div>
+</div>

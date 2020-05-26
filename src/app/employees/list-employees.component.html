@@ -1,0 +1,10 @@
+<div class="form-group">
+  <input type="text" class="form-control" placeholder="Search By Name"
+style="width: 300px;" [(ngModel)]="searchTerm"/>
+</div>
+<div *ngFor="let emp of filteredEmployees">
+  <app-display-employee [emp]="emp" (notify)="handleNotify($event)"
+  class="pointerCursor">
+  </app-display-employee>
+</div>
+

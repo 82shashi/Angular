@@ -1,0 +1,36 @@
+<div [formGroup]="form" class="form-group">
+    <label [attr.for]="question.key" class="control-label" *ngIf="question.type!=='checkbox'">{{question.label}}</label>
+    <div [ngSwitch]="question.controlType">
+        <input *ngSwitchCase="'textbox'" [id]="question.key" [type]="question.type" [formControlName]="question.key"
+            class="form-control">
+
+        <select *ngSwitchCase="'dropdown'" [id]="question.key" [formControlName]="question.key" class="form-control">
+            <option *ngFor="let opt of question.options" [value]="opt.key">
+                {{opt.value}}
+            </option>
+        </select>
+        <div *ngSwitchCase="'radio'" class="form-control" [id]="question.key">
+            <label *ngFor="let opt of question.options" class="radio-inline">
+                <input type="radio" [value]="opt.key" [formControlName]="question.key" />
+                {{opt.value}}
+            </label>
+        </div>
+        <div *ngSwitchCase="'checkbox'" class="form-group row mb-2">
+            <div class="col-md-8">
+                <label class="form-check-label">
+                    <input class="form-check-input" [type]="question.type" [id]="question.key"
+                        [formControlName]="question.key" />
+                    {{question.label}}
+                </label>
+            </div>
+        </div>
+    </div>
+    <span class="invalid-feedback" *ngIf="isInValid">        
+        <div *ngIf="control.errors?.required">
+           {{question.label}} is required
+        </div>
+        <div *ngIf="control.errors?.email">
+            Invalid email address
+         </div>
+    </span>    
+</div>
