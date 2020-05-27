@@ -2,18 +2,51 @@ import { Injectable } from '@angular/core';
 import { QuestionBase } from './question-base';
 import { DropdownQuestion } from './question-dropdown';
 import { TextboxQuestion } from './question-textbox';
-import { of } from 'rxjs';
+import { of, Observable, throwError } from 'rxjs';
 import { RadioButtonsQuestion } from './question-radiobuttons';
+import { HttpClient } from '@angular/common/http';
+import { tap, catchError } from 'rxjs/operators';
 
 @Injectable()
 export class QuestionServiceService {
 
-  constructor() { }
+  private url:string='http://localhost:3000/questions';
+  constructor(private http:HttpClient) { }
+  //json-server --watch db.json
 
-  getQuestions() {
-    let questions: QuestionBase<string>[] =
-      [
-        new QuestionBase<string>(
+ getQuestions(): Observable<QuestionBase<any>[]> {
+  return this.http.get<QuestionBase<any>[]>(this.url)
+    .pipe( 
+      tap(data => console.log(JSON.stringify(data))),
+      catchError(this.handleError)
+    );
+}
+
+
+
+ private handleError(err) {
+  // in a real world app, we may send the server to some remote logging infrastructure
+  // instead of just logging it to the console
+  let errorMessage: string;
+  if (err.error instanceof ErrorEvent) {
+    // A client-side or network error occurred. Handle it accordingly.
+    errorMessage = `An error occurred: ${err.error.message}`;
+  } else {
+    // The backend returned an unsuccessful response code.
+    // The response body may contain clues as to what went wrong,
+    errorMessage = `Backend returned code ${err.status}: ${err.body.error}`;
+  }
+  console.error(err);
+  return throwError(errorMessage);
+}
+
+
+
+
+  getQuestions1() :Observable<any>
+  {
+    let questions=
+      [       
           {
             key: 'designation',
             label: 'Designation',
@@ -25,9 +58,7 @@ export class QuestionServiceService {
               { key: 'engineer', value: 'Engineer' }
             ],
             order: 4
-          }
-        ),
-        new QuestionBase<string>(
+          },
           {
             key: 'sex',
             label: 'Sex',
@@ -39,8 +70,8 @@ export class QuestionServiceService {
             ],
             order: 5
           }
-        ),
-        new QuestionBase<string>(
+       ,
+       
           {
             key: 'firstName',
             label: 'First Name',
@@ -49,8 +80,8 @@ export class QuestionServiceService {
             required: true,
             order: 1
           }
-        ),
-        new QuestionBase<string>(
+        ,
+       
           {
             key: 'salary',
             label: 'Salary',
@@ -59,21 +90,24 @@ export class QuestionServiceService {
             required: true,
             order: 2
           }
-        ),
-        new QuestionBase<string>(
+        ,
+       
           {
             key: 'emailAddress',
             label: 'Email',
             type: 'email',
             controlType: 'textbox',
             order: 3
-          })
+          }
       ];
 
 
     console.log(JSON.stringify(questions));
     return of(questions.sort((a, b) => a.order - b.order));
   }
+
+
+
 
   getDepartmentQuestions() {
     let questions: QuestionBase<any>[] =

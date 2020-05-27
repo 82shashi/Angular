@@ -16,7 +16,7 @@ import { EmployeeFilterPipe } from './employees/employee-filter.pipe';
 import { DynamicFormQuestionComponentComponent } from './dynamic/dynamic-form-question-component/dynamic-form-question-component.component';
 import {QuestionServiceService} from './dynamic/question-service.service';
 import { DynamicFormComponentComponent } from './dynamic/dynamic-form-component/dynamic-form-component.component';
-
+import { HttpClientModule } from '@angular/common/http';
 const appRoutes:Routes=[
   {
     path:'list',component:ListEmployeesComponent
@@ -48,11 +48,12 @@ const appRoutes:Routes=[
   ],
   imports: [
     BrowserModule,
-    FormsModule,
+    FormsModule,  
     RouterModule.forRoot(appRoutes),
     BsDatepickerModule.forRoot(),
     BrowserAnimationsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule
   
   ],
   providers: [EmployeeService,CreateEmployeeCanDeactivateGuardService,QuestionServiceService],

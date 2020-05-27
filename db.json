@@ -1,0 +1,61 @@
+{
+  "questions": [
+    {
+      "id": 1,
+      "key": "firstName",
+      "label": "First Name",
+      "controlType": "textbox",
+      "value": "",
+      "required": true,
+      "order": 1
+    }
+    ,
+
+    {
+      "id": 2,
+      "key": "salary",
+      "label": "Salary",
+      "value": "",
+      "controlType": "textbox",
+      "required": true,
+      "order": 2
+    }
+    ,
+
+    {
+      "id": 3,
+      "key": "emailAddress",
+      "label": "Email",
+      "type": "email",
+      "controlType": "textbox",
+      "required": true,
+      "order": 3     
+    },
+    {
+      "id": 4,
+      "key": "designation",
+      "label": "Designation",
+      "controlType": "dropdown",
+      "options": [
+        { "key": "manager", "value": "Manager" },
+        { "key": "developer", "value": "Developer" },
+        { "key": "hrp", "value": "HR Personal" },
+        { "key": "engineer", "value": "Engineer" }
+      ],
+      "order": 4
+    }
+    ,
+    {
+      "id": 5,
+      "key": "sex",
+      "label": "Sex",
+      "type": "radio",
+      "controlType": "radio",
+      "options": [
+        { "key": "male", "value": "Male" },
+        { "key": "female", "value": "Female" }
+      ],
+      "order": 5
+    }
+  ]
+}

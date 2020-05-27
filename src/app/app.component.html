@@ -11,7 +11,7 @@
 </nav>
 <router-outlet></router-outlet>
 </div> -->
-<div class="container">
-    <app-dynamic-form [questions]="questions$ | async">
+<div class="container" *ngIf="questions">
+    <app-dynamic-form [questions]="questions">
     </app-dynamic-form>
 </div>
