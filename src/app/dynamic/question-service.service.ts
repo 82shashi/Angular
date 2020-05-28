@@ -22,8 +22,6 @@ export class QuestionServiceService {
     );
 }
 
-
-
  private handleError(err) {
   // in a real world app, we may send the server to some remote logging infrastructure
   // instead of just logging it to the console
@@ -39,73 +37,6 @@ export class QuestionServiceService {
   console.error(err);
   return throwError(errorMessage);
 }
-
-
-
-
-  getQuestions1() :Observable<any>
-  {
-    let questions=
-      [       
-          {
-            key: 'designation',
-            label: 'Designation',
-            controlType: 'dropdown',
-            options: [
-              { key: 'manager', value: 'Manager' },
-              { key: 'developer', value: 'Developer' },
-              { key: 'hrp', value: 'HR Personal' },
-              { key: 'engineer', value: 'Engineer' }
-            ],
-            order: 4
-          },
-          {
-            key: 'sex',
-            label: 'Sex',
-            type: 'radio',
-            controlType: 'radio',
-            options: [
-              { key: 'male', value: 'Male' },
-              { key: 'female', value: 'Female' }
-            ],
-            order: 5
-          }
-       ,
-       
-          {
-            key: 'firstName',
-            label: 'First Name',
-            controlType: 'textbox',
-            value: '',
-            required: true,
-            order: 1
-          }
-        ,
-       
-          {
-            key: 'salary',
-            label: 'Salary',
-            value: '',
-            controlType: 'textbox',
-            required: true,
-            order: 2
-          }
-        ,
-       
-          {
-            key: 'emailAddress',
-            label: 'Email',
-            type: 'email',
-            controlType: 'textbox',
-            order: 3
-          }
-      ];
-
-
-    console.log(JSON.stringify(questions));
-    return of(questions.sort((a, b) => a.order - b.order));
-  }
-
 
 
 

@@ -27,8 +27,9 @@ export class DynamicFormComponentComponent implements OnInit {
     this.form=this.qcs.toFormGroup(this.questions);
   }
 
-  onSubmit() {
-    this.payLoad = JSON.stringify(this.form.getRawValue());
-  }
+  displayValues()
+  {
 
+    
+  }
 }

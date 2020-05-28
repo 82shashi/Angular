@@ -1,91 +1,66 @@
 import { Injectable } from '@angular/core';
 import { Employee } from '../models/employee.model';
-import { Observable,of} from 'rxjs';
-import {delay} from 'rxjs/operators';
+import { Observable, of, throwError } from 'rxjs';
+import { delay, tap, catchError } from 'rxjs/operators';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Injectable()
-export class EmployeeService
-{
+export class EmployeeService {
 
-    private url:string='';
+  private baseUrl: string = 'http://localhost:3000/employees';
+  private listEmployees: Employee[];
+
+  constructor(private http: HttpClient) { 
     
-    constructor()
-    {
+  }  
 
+  getEmployees(): Observable<Employee[]> {
+
+    return this.http.get<Employee[]>(this.baseUrl)
+      .pipe(
+        tap(data=>this.listEmployees=data),
+        catchError(this.handleError)
+      );
+  }
+
+
+
+  private handleError(err) {
+    // in a real world app, we may send the server to some remote logging infrastructure
+    // instead of just logging it to the console
+    let errorMessage: string;
+    if (err.error instanceof ErrorEvent) {
+      // A client-side or network error occurred. Handle it accordingly.
+      errorMessage = `An error occurred: ${err.error.message}`;
+    } else {
+      // The backend returned an unsuccessful response code.
+      // The response body may contain clues as to what went wrong,
+      errorMessage = `Backend returned code ${err.status}: ${err.body.error}`;
     }
+    console.error(err);
+    return throwError(errorMessage);
+  }
 
 
-     private listEmployees:Employee[]=
-     [
-       {
-         id:1,
-         name:'Shashi Kant',
-         gender:'Male',
-         contactPreference:'email',
-         email:'shashikants2005@gmail.com',
-         dateOfBirth:new Date('12/01/1981'),
-         department:'1',
-         isActive:true,
-         photoPath:"assets/images/Image1.jpg"
-       },
-       {
-         id:2,
-         name:'Subhi',
-         gender:'Female',
-         contactPreference:'email',
-         email:'subhi2005@gmail.com',
-         dateOfBirth:new Date('05/15/2015'),
-         department:'2',
-         isActive:true,
-         photoPath:"assets/images/Image2.jpg"
-       },
-       {
-         id:3,
-         name:'Mangal Singh',
-         gender:'Male',
-         contactPreference:'email',
-         email:'mangal2005@gmail.com',
-         dateOfBirth:new Date('05/15/1995'),
-         department:'1',
-         isActive:true,
-         photoPath:"assets/images/Image3.jpg"
-       },
-       {
-         id:4,
-         name:'Veer Bhadra',
-         gender:'Male',
-         contactPreference:'email',
-         email:'veer2005@gmail.com',
-         dateOfBirth:new Date('02/09/1985'),
-         department:'3',
-         isActive:true,
-         photoPath:"assets/images/Image4.jpg"
-       }
-   
-   
-     ];
+  save(employee: Employee) {
+    this.listEmployees.push(employee);
+  }
 
-     getEmployees():Observable<Employee[]>
-     {
-        
-        return of(this.listEmployees).pipe(delay(5000));
+  update(employee: Employee):Observable<Employee>
+  {
+    const headers=new HttpHeaders({'Content-Type':'application/json'});
+    const url=`${this.baseUrl}/${employee.id}`;
+    return this.http.put<Employee>(url,employee,{headers:headers});
+  }
 
-     }
 
-     save(employee:Employee)
-     {
-         this.listEmployees.push(employee);
-     }
+  getEmployee(id: number): Employee {
+    return this.listEmployees.find(a => a.id === id);
+  }
 
-     getEmployee(id:number):Employee
-     {
-         return this.listEmployees.find(a=>a.id===id);
-     }
-
-     getEmployeesCount():Number
-     {
-         return this.listEmployees.length;
-     }
+  getEmployeesCount(): Number {
+    return this.listEmployees.length;
+  }
 
 
 }

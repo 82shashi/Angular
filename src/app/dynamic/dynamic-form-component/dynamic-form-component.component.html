@@ -8,14 +8,8 @@
                 <div *ngFor="let question of questions" class="form-row">
                     <dynamic-question [question]="question" [form]="form">
                     </dynamic-question>
-                </div>
-                <div class="form-row">
-                    <button type="submit" [disabled]="!form.valid">Save</button>
-                </div>
+                </div>                
             </div>
         </div>
-    </form>
-    <div *ngIf="payLoad" class="form-row">
-        <strong>Saved the following values</strong><br>{{payLoad}}
-    </div>
+    </form>   
 </div>
