@@ -101,15 +101,15 @@
   "employees": [
     {
       "id": 1,
-      "name": "Rashmi Sharma",
-      "gender": "female",
+      "name": "Shashi Kant ",
+      "gender": "male",
       "contactPreference": "email",
       "email": "shashikants2005@gmail.com",
       "dateOfBirth": "1981-11-30T18:30:00.000Z",
       "department": "1",
       "isActive": true,
       "photoPath": "assets/images/Image1.jpg",
-      "salary": "121212",
+      "salary": "890000",
       "designation": "1"
     },
     {

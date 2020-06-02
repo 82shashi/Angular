@@ -8,7 +8,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 export class EmployeeService {
 
   private baseUrl: string = 'http://localhost:3000/employees';
-  private listEmployees: Employee[];
+  private listEmployees: Employee[]=[];
 
   constructor(private http: HttpClient) { 
     

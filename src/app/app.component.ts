@@ -40,42 +40,33 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
     //this.questions$=new Observable<QuestionBase<any>[]>();
     //this.questions$=this.service.getQuestions();
     this.subs = this.service.getQuestions().subscribe(data =>
-      this.questions = data,
+      {this.questions = data;        
+      },
       error => console.log(error));
   }
 
   ngAfterViewInit(): void {
-
-
+    
+    this.employeeService.getEmployees().subscribe(
+      data=>
+      {
+        this.employee = {...data[0]};     
+        this.empForm.form.patchValue({...this.employee});
+      }
+    );
+   
   }
 
 
-  OnSave() {
-
-    // console.log(JSON.stringify(this.employee));
-    // console.log(JSON.stringify(this.empForm.form.value));
-
-
-    // console.log(JSON.stringify(p));
-
-    this.employeeService.getEmployees().subscribe(data => {
-      this.employee = this.employeeService.getEmployee(1);
-
+  OnSave() 
+  {
       const p = { ...this.employee, ...this.empForm.form.value };
-
       this.employeeService.update(p).subscribe(
         {
-          next: (data) => console.log('Saved Employee:' + JSON.stringify(data)),
+          next: (data) => alert('Saved Employee:' + JSON.stringify(data)),
           error: err => console.log(err)
         }
       );
-    }
-    );
-
-
-
-
-
-
+    }  
   }
-}
+
